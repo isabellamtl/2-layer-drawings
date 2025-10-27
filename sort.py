@@ -12,14 +12,15 @@ def sort(graph):
         elif v in top_index:  # v = top_node
             bottom_to_top_indices[u].append(top_index[v])
 
-    # Berechne Durchschnittsindex
+    # Mittlere Position gemäß Intervall berechnen
     bottom_avg_index = {
-        b: sum(indices) / len(indices)
+        b: (min(indices) + max(indices)) / 2
         for b, indices in bottom_to_top_indices.items()
     }
 
+    # Bottom-Nodes basierend auf mittlerer Position sortieren
     sorted_bottom_nodes = sorted(graph.bottom_nodes, key=lambda b: bottom_avg_index.get(b, float('inf')))
-
     sorted_graph = BipartiteGraph(graph.top_nodes, sorted_bottom_nodes, graph.edges)
+    
     return sorted_graph
 

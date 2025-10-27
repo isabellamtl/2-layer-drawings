@@ -5,19 +5,13 @@ class BipartiteGraph:
         self.top_nodes = top_nodes
         self.bottom_nodes = bottom_nodes
         self.edges = edges
-        self.adjacency = self._build_adjacency()
       
+    # Tausche zwei Bottom-Nodes basierend auf ihren Indizes
+    def swap_bottom_nodes(self, index1, index2):    
+        self.bottom_nodes[index1], self.bottom_nodes[index2] = self.bottom_nodes[index2], self.bottom_nodes[index1]
+        return self
 
-    def _build_adjacency(self):
-        adj = {node: [] for node in self.top_nodes + self.bottom_nodes}
-        for u, v in self.edges:
-            adj[u].append(v)
-            adj[v].append(u)  # Für ungerichteten Graph
-        return adj
-
-    def neighbors(self, node):
-        return self.adjacency.get(node, [])
-    
+    # Zeichne den Graphen
     def _draw_graph(self,name):
         draw_bipartite_graph(self.top_nodes, self.bottom_nodes, self.edges, name)
 
