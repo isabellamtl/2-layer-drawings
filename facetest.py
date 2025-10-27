@@ -4,6 +4,9 @@ from collections import deque
 
 def check_intervals(graph): 
 
+    if len(graph.edges) > 2 * (len(graph.top_nodes) + len(graph.bottom_nodes)) - 4:
+        print("Schranke der Kanten überschritten - kein 1+ real face 2-layer embedding möglich!")
+        return graph
     # Zuerst den Graphen sortieren
     graph = sort(graph)
 
@@ -66,7 +69,8 @@ def check_intervals(graph):
             # Fall 1
             if j == 3 and len(group) == 4:
                 intmid = intervals[group[2]] # vorletzter Knoten
-                if not (max(intmid[0], next_interval[0]) < min(intmid[1], next_interval[1])):
+                intlast = intervals[group[3]] # letzter Knoten
+                if not (max(intmid[0], intlast[0]) < min(intmid[1], intlast[1])):
                     group.pop()  # Letzten Knoten entfernen, wenn keine paarweise Überlappung
                     next_node = group[2]
                     next_interval = intervals[next_node]
