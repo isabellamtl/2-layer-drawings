@@ -43,7 +43,7 @@ def check_intervals(graph):
     queue.extend(graph.bottom_nodes)
 
     # Hauptschleife zur Überprüfung der Intervalle
-    for i in range(len(graph.bottom_nodes)-1):
+    for _ in range(len(graph.bottom_nodes)-1):
         # Jeden Knoten nur einmal betrachten (außer den letzten)
         curr_node = queue.popleft()
         curr_interval = intervals[curr_node]
@@ -51,15 +51,33 @@ def check_intervals(graph):
         # Gruppe von überlappenden Intervallen bilden
         group = [curr_node]
 
-        # Überprüfen der nächsten 3 Knoten auf Überlappung
+        # Überprüfen der nächsten 3 Knoten auf Überlappung, wenn vorhanden
         for j in range(1, 4):
-            if i + j >= len(graph.bottom_nodes): 
-                break
-            next_node = graph.bottom_nodes[i + j]
-            next_interval = intervals[next_node]
+            if graph.bottom_nodes.index(curr_node) + j < len(graph.bottom_nodes): #< + Einrückung -break
+                
+                next_node = graph.bottom_nodes[graph.bottom_nodes.index(curr_node) + j]
+                next_interval = intervals[next_node]
 
-            if max(curr_interval[0], next_interval[0]) < min(curr_interval[1], next_interval[1]):  
-                group.append(next_node)
+                # Überlappung prüfen
+                if max(curr_interval[0], next_interval[0]) < min(curr_interval[1], next_interval[1]):  
+                    group.append(next_node)
+
+            # Auf paarweise Überlappung prüfen am Ende der Schleife
+            # Fall 1
+            if j == 3 and len(group) == 4:
+                intmid = intervals[group[2]] # vorletzter Knoten
+                if not (max(intmid[0], next_interval[0]) < min(intmid[1], next_interval[1])):
+                    group.pop()  # Letzten Knoten entfernen, wenn keine paarweise Überlappung
+                    next_node = group[2]
+                    next_interval = intervals[next_node]
+
+            # Fall 2 (kann auch nach Fall 1 auftreten)
+            if j == 3 and len(group) == 3:
+                intmid = intervals[group[1]] # mittlerer Knoten
+                int3 = intervals[group[2]] # letzter Knoten
+                if not (max(intmid[0], int3[0]) < min(intmid[1], int3[1])):
+                    group.pop()  # Letzten Knoten entfernen, wenn keine paarweise Überlappung
+        
             
         # Intervall hat keine Überlappung
         if len(group) == 1:
@@ -69,12 +87,21 @@ def check_intervals(graph):
         elif len(group) == 2:
             print(f"Intervall von {group[0]} überlappt mit dem von {group[1]}")
 
+            m1 = middle_edges_indices(group[0])
+            m2 = middle_edges_indices(group[1])
+            
+            # Fall, dass nur ein Knoten Grad ≥ 3 hat, mittler Kanten dürfen dann keine 2 Intervallgrenzen schneiden
+            if degree(group[0]) >= 3 ^ degree(group[1]) >= 3:
+                int1 = intervals[group[0]]
+                int2 = intervals[group[1]]  
+                if (max(m1, default= -1) > int2[1] or min(m2, default= float('inf')) < int1[0]):
+                    print("Mittlere Kante liegt auf der anderen Seite des anderen Intervalls - keine Lösung möglich!")
+                    break
+               
             #  Mittlere Kanten überprüfen
-            if degree(group[0]) >= 3 and degree(group[1]) >= 3:
-                m1 = middle_edges_indices(group[0])
-                m2 = middle_edges_indices(group[1])
-                print(f"Mittlere Kanten von {group[0]}: {m1}")
-                print(f"Mittlere Kanten von {group[1]}: {m2}")
+            elif degree(group[0]) >= 3 and degree(group[1]) >= 3:
+                print(f"Indizes der mittleren Kanten von {group[0]}: {m1}")
+                print(f"Indizes der mittleren Kanten von {group[1]}: {m2}")
 
                 if max(m1) <= min(m2):
                     print("Keine mittleren Kanten schneiden sich.")
@@ -181,7 +208,7 @@ def check_intervals(graph):
                 for mid in m2:
                     if mid > int3[0] and mid < int1[1]:
                         print("Mittlere Kante des mittleren Knotens liegt in allen 3 Intervallen - keine Lösung möglich!")
-                        break
+                        return graph
 
         # 4 Intervalle überlappen paarweise                
         elif len(group) == 4:

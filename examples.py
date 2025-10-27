@@ -1,19 +1,6 @@
 from sort import *
 from facetest import *
 
-"""
-class BipartiteGraph:
-    def __init__(self, top_nodes, bottom_nodes, edges):
-        self.top_nodes = top_nodes
-        self.bottom_nodes = bottom_nodes
-        self.edges = edges
-        self.adjacency = self._build_adjacency()
- 
-    def _draw_graph(self,name):
-        draw_bipartite_graph(self.top_nodes, self.bottom_nodes, self.edges, name)
-"""
-
-
 # --------- Beispiele ------------
 
 # 1: Intervall überlappt nicht und 2 Intervalle überlappen (möglich)
@@ -165,7 +152,8 @@ print("Graph 6:")
 check_intervals(beispiel6)._draw_graph("Beispiel6_final")
 print("")
 
-# 7: 3 paarweise überlappende Intervalle (nicht möglich)
+# 7: 3 paarweise überlappende Intervalle (nicht möglich,
+#mittlere Kante des mittleren Knotens außerhalb der andren Intervalle)
 top7 = ['v1', 'v2', 'v3','v4','v5','v6', 'v7']
 bottom7 = ['w1', 'w2', 'w3']
 edge7 = [
@@ -185,4 +173,91 @@ beispiel7._draw_graph("Beispiel7")
 sort(beispiel7)._draw_graph("Beispiel7_sorted")
 print("Graph 7:")
 check_intervals(beispiel7)._draw_graph("Beispiel7_final")
+print("")
+
+
+# 8: 3 paarweise überlappende Intervalle (nicht möglich,
+# mittlere Kanten schneiden sich)
+top8 = ['v1', 'v2', 'v3','v4','v5','v6', 'v7', 'v8']
+bottom8 = ['w1', 'w2', 'w3','w4']
+edge8 = [
+    ('v1','w1'),
+    ('v2','w1'),
+    ('v3','w1'),
+    ('v2','w2'),
+    ('v4','w2'),
+    ('v6','w2'),
+    ('v7','w2'),
+    ('v3','w3'),
+    ('v5','w3'),
+    ('v6','w3'),
+    ('v5','w4'),
+    ('v7','w4'),
+    ('v8','w4'),
+]
+
+beispiel8 = BipartiteGraph(top8, bottom8, edge8)
+beispiel8._draw_graph("Beispiel8")  
+sort(beispiel8)._draw_graph("Beispiel8_sorted")
+print("Graph 8:")
+check_intervals(beispiel8)._draw_graph("Beispiel8_final")
+print("")
+
+# 9: 3 paarweise überlappende Intervalle (nicht möglich,
+# Mittlere Kante liegt in 3 Intervallen gleichzeitig)
+top9 = ['v1', 'v2', 'v3','v4','v5','v6', 'v7', 'v8']
+bottom9 = ['w1', 'w2', 'w3']
+edge9 = [
+    ('v1','w1'),
+    ('v2','w1'),
+    ('v3','w1'),
+    ('v4','w1'),
+    ('v6','w1'),
+    ('v3','w2'),
+    ('v4','w2'),
+    ('v5','w2'),
+    ('v7','w2'),
+    ('v4','w3'),
+    ('v6','w3'),
+    ('v7','w3'),
+    ('v8','w3'),
+]
+
+beispiel9 = BipartiteGraph(top9, bottom9, edge9)
+beispiel9._draw_graph("Beispiel9")  
+sort(beispiel9)._draw_graph("Beispiel9_sorted")
+print("Graph 9:")
+check_intervals(beispiel9)._draw_graph("Beispiel9_final")
+print("")
+
+
+# 10: Beispiel aus Einleitung
+top10 = ['a', 'b', 'c','d','e','f', 'g', 'h', 'i']
+bottom10 = ['u', 'v', 'w', 'x', 'y', 'z']
+edge10 = [
+    ('h','u'),
+    ('i','u'),
+    ('a','v'),
+    ('b','v'),
+    ('d','v'),
+    ('c','w'),
+    ('e','w'),
+    ('f','w'),
+    ('i','w'),
+    ('a','x'),
+    ('b','x'),
+    ('c','x'),
+    ('f','x'),
+    ('g','y'),
+    ('h','y'),
+    ('e','z'),
+    ('f','z'),
+    ('g','z'),
+]
+
+beispiel10 = BipartiteGraph(top10, bottom10, edge10)
+beispiel10._draw_graph("Beispiel10")  
+sort(beispiel10)._draw_graph("Beispiel10_sorted")
+print("Graph 10:")
+check_intervals(beispiel10)._draw_graph("Beispiel10_final")
 print("")
