@@ -9,13 +9,13 @@ def draw_bipartite_graph(top, bottom, edge, name):
     G.add_edges_from(edge)
 
     pos = {}
-    # Positioniere die Knoten in zwei Schichten
+    # Positioniere die Knoten in zwei Schichten, Abstand der Knoten anpassen
     for i, node in enumerate(top):
         pos[node] = (i, 1)  # obere Schicht
     for i, node in enumerate(bottom):
         pos[node] = (i, 0)  # untere Schicht
     
-    # Plot
+    # Plot, Größe der Knoten und der Abbildung anpassen
     plt.figure(figsize=(8, 4))
     nx.draw(G, pos, with_labels=True, node_size=700, node_color='lightgray', edge_color='black')
     plt.axis('off')

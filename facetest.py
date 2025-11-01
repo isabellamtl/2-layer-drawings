@@ -148,7 +148,7 @@ def check_intervals(graph):
                 break
 
             # 1. Tausch-Fall
-            elif int1[0] <= int3[0] and int3[0] <= int2[0] and int2[0] <= int1[1] and int1[1] <= int2[1]:
+            elif int1[0] <= int3[0] and int3[0] < int2[0] and int2[0] < int1[1] and int1[1] <= int2[1]:
                 print(f"{group[1]} und {group[2]} müssen getauscht werden!")
                 # Überprüfen, ob Tausch möglich
                 if cant_be_swapped[group[1]] or cant_be_swapped[group[2]]:
@@ -159,14 +159,14 @@ def check_intervals(graph):
                     idx1 = graph.bottom_nodes.index(group[1])
                     idx2 = graph.bottom_nodes.index(group[2])
                     graph = graph.swap_bottom_nodes(idx1, idx2)
-                    # Knoten dürfen nicht nochmal getauscht werden
-                    cant_be_swapped[group[1]] = True
-                    cant_be_swapped[group[2]] = True
                     # Gruppenknoten aktualisieren
                     group[1], group[2] = group[2], group[1]
+                    # Knoten dürfen nicht nochmal getauscht werden
+                    cant_be_swapped[group[1]] = True
+                    # letzter Knoten kann später nochmal getauscht werden (group[2])
 
             # 2. Tausch-Fall
-            elif int1[0] <= int2[0] and int2[0] <= int3[0] and int3[0] <= int2[1] and int2[1] <= int1[1]:
+            elif int1[0] <= int2[0] and int2[0] < int3[0] and int3[0] < int2[1] and int2[1] <= int1[1]:
                 print(f"{group[0]} und {group[1]} müssen getauscht werden!")
                 # Überprüfen, ob Tausch möglich
                 if cant_be_swapped[group[0]] or cant_be_swapped[group[1]]:
@@ -177,11 +177,11 @@ def check_intervals(graph):
                     idx1 = graph.bottom_nodes.index(group[0])
                     idx2 = graph.bottom_nodes.index(group[1])
                     graph = graph.swap_bottom_nodes(idx1, idx2)
+                    # Gruppenknoten aktualisieren
+                    group[0], group[1] = group[1], group[0]
                     # Knoten dürfen nicht nochmal getauscht werden
                     cant_be_swapped[group[0]] = True
                     cant_be_swapped[group[1]] = True
-                    # Gruppenknoten aktualisieren
-                    group[0], group[1] = group[1], group[0]
 
             # Erweiterung für Fall 3 Knoten
             # Intervalle neu festlegen, falls Gruppentausch stattfand   

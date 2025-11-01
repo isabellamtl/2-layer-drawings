@@ -261,3 +261,45 @@ sort(beispiel10)._draw_graph("Beispiel10_sorted")
 print("Graph 10:")
 check_intervals(beispiel10)._draw_graph("Beispiel10_final")
 print("")
+
+"""
+# 11: Großes Beispiel, Abstand und Größe der Knoten in draw.py angepasst
+top_nodes11 = ['v1', 'v2', 'v3','v4','v5','v6', 'v7', 'v8', 'v9', 'v10',
+               'v11','v12','v13','v14','v15','v16','v17','v18','v19', 'v20', 'v21', 'v22', 'v23',
+               'v24','v25','v26','v27']
+bottom_nodes11 = [
+    'w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w7', 'w8', 'w9', 'w10',
+    'w11', 'w12', 'w13', 'w14', 'w15', 'w16', 'w17', 'w18', 'w19', 'w20', 'w21', 'w22'
+]
+edges11 = [
+    ('v1','w10'), ('v3','w10'),
+    ('v1','w2'), ('v2','w2'), ('v4','w2'),
+    ('v2','w21'), ('v4','w21'), ('v5','w21'),
+    ('v5','w7'), ('v6','w7'),
+    ('v4','w14'), ('v5','w14'), ('v6','w14'),
+    ('v5','w5'), ('v6','w5'), ('v7','w5'),
+    ('v6','w3'), ('v8','w3'),
+    ('v7','w1'), ('v8','w1'), ('v9','w1'),('v10','w1'),
+    ('v8','w9'), ('v9','w9'),
+    ('v10','w19'), ('v12','w19'),
+    ('v9','w13'), ('v10','w13'),('v11','w13'), ('v12','w13'),('v13','w13'), ('v14','w13'),
+    ('v13','w12'), ('v15','w12'),
+    ('v13','w4'), ('v16','w4'),
+    ('v14','w11'), ('v17','w11'),('v16','w11'),
+    ('v15','w8'), ('v18','w8'),('v16','w8'),
+    ('v17','w6'), ('v18','w6'),
+    ('v18','w15'), ('v19','w15'),('v20','w15'),
+    ('v17','w18'), ('v19','w18'),
+    ('v18','w22'), ('v22','w22'),
+    ('v21','w20'), ('v25','w20'),('v26','w20'),
+    ('v20','w17'), ('v23','w17'),('v19','w17'),
+    ('v23','w16'), ('v24','w16'),('v27','w16'),('v25','w16')
+]
+
+beispiel11 = BipartiteGraph(top_nodes11, bottom_nodes11, edges11)
+beispiel11._draw_graph("Beispiel11")  
+sort(beispiel11)._draw_graph("Beispiel11_sorted")
+print("Graph 11:")
+check_intervals(beispiel11)._draw_graph("Beispiel11_final")
+print("")
+"""
