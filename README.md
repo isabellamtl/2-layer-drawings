@@ -4,4 +4,4 @@
 - **facestest.py:** Hauptalgorithmus zum Überprüfen und Erstellen der Zeichnungen
 - **sort.py:** Sortieralgorithmus, Sortieren der Knoten gemäß ihrer Intervalle
 - **Variante 1:** Code für die Variante, bei der alle Knoten Grad 2 haben
-  - **drawing-py:** Algorithmus zum erstellen der Zeichnungen
+  - **drawing.py:** Algorithmus zum erstellen der Zeichnungen
