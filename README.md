@@ -1,6 +1,7 @@
-# 2-layer-drawings
-# 2-layer-drawings
-# 2-layer-drawings
-# 2-layer-drawings
-# 2-layer-drawings
-# 2-layer-drawings
+- **BipartiteGraph.py:** Datenstruktur für bipartite Graphen
+- **draw.py:** draw_bipartite_graph()-Funktion zum erstellen der Zeichnungen, Anpassung der Größe und Abstand von Knoten
+- **examples.py:** Beispiele zum Testen
+- **facestest.py:** Hauptalgorithmus zum Überprüfen und Erstellen der Zeichnungen
+- **sort.py:** Sortieralgorithmus, Sortieren der Knoten gemäß ihrer Intervalle
+- **Variante 1:** Code für die Variante, bei der alle Knoten Grad 2 haben
+  - **drawing-py:** Algorithmus zum erstellen der Zeichnungen
